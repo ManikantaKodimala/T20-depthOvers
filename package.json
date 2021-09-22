@@ -1,0 +1,28 @@
+{
+  "name": "T20-depthOvers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bin/app.js",
+    "start:dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManikantaKodimala/T20-depthOvers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ManikantaKodimala/T20-depthOvers/issues"
+  },
+  "homepage": "https://github.com/ManikantaKodimala/T20-depthOvers#readme",
+  "devDependencies": {
+    "@types/node": "^16.9.4",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.1",
+    "typescript": "^3.3.3"
+  }
+}
