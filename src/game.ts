@@ -107,7 +107,6 @@ export class Game {
         status.batsMan = TeamMembers[this.wicketsLost + 1];
         this.team.setScore(status.batsMan, 0, true);
       }
-
       return;
     }
     console.log(this.getCommentary(status, ""));

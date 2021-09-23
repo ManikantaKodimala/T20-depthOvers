@@ -1,2 +1,4 @@
 node_modules
-bin
+bin/src
+bin/app.js
+bin/test

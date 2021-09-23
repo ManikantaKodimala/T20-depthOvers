@@ -6,8 +6,8 @@ export enum TeamMembers {
 }
 
 export class Team {
-  name: string;
-  individualScore: {
+  private name: string;
+  private individualScore: {
     [name: string]: {
       score: number;
       ballsPlayed: number;
