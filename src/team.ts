@@ -12,7 +12,7 @@ export class Team {
       score: number;
       ballsPlayed: number;
       isOut: boolean;
-      played: boolean;
+      hasPlayed: boolean;
     };
   } = {};
 
@@ -23,15 +23,35 @@ export class Team {
         score: 0,
         ballsPlayed: 0,
         isOut: false,
-        played: false,
+        hasPlayed: false,
       };
     }
+  }
+
+  getPlayerScore(name: string): number {
+    let score: number = this.individualScore[name]!.score;
+    return score;
+  }
+
+  getPlayerBallsPlayed(name: string): number {
+    let ballPlayed = this.individualScore[name]!.ballsPlayed as number;
+    return ballPlayed;
+  }
+
+  isPlayerOut(name: string): boolean {
+    let isPlayerOut = this.individualScore[name]!.isOut as boolean;
+    return isPlayerOut;
+  }
+
+  isPlayerPlayed(name: string): boolean {
+    let isPlayerPlayed = this.individualScore[name]!.hasPlayed as boolean;
+    return isPlayerPlayed;
   }
 
   GetScoreCard(): void {
     for (let index = 0; index < 4; index++) {
       let member = TeamMembers[index];
-      if (this.individualScore[member].played) {
+      if (this.individualScore[member].hasPlayed) {
         let score = this.individualScore[member].score;
         let ballsPlayed = this.individualScore[member].ballsPlayed;
         let out = this.individualScore[member].isOut;
@@ -43,7 +63,7 @@ export class Team {
   }
 
   setScore(name: string, score: number, newPlayer: boolean) {
-    this.individualScore[name].played = true;
+    this.individualScore[name].hasPlayed = true;
     if (!newPlayer) this.individualScore[name].ballsPlayed++;
 
     if (score != -1) {

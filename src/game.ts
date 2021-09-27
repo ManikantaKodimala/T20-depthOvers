@@ -1,5 +1,5 @@
 import { TeamMembers, Team } from "./team";
-import { prediction } from "./prediction";
+import { scorePrediction } from "./prediction";
 
 export class Game {
   private static readonly scoreCard: number[] = [1, 2, 3, 4, 5, 6, 0, -1];
@@ -64,7 +64,7 @@ export class Game {
     ) {
       console.log(this.getCommentary(status, "over"));
       while (this.balls > 0 && this.wicketsLost < 3) {
-        result = prediction(batsMan)!;
+        result = scorePrediction(batsMan)!;
         this.balls--;
         status = {
           result: result,

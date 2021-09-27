@@ -5,7 +5,7 @@ const scoringProbability: { [name: string]: number[] } = {
   Shashi_Henra: [30, 25, 5, 0, 5, 1, 4, 30],
 };
 
-export const prediction = function weightedProbaility(palyerName: string) {
+export const scorePrediction = function weightedProbaility(palyerName: string) {
   let random = Math.floor(Math.random() * (100 - 0 + 1) + 0);
   let probabilities: number[] = scoringProbability[palyerName];
   let weight: number = 0;
