@@ -71,12 +71,12 @@ export class Game {
           batsMan: batsMan,
           nonStriker: nonStriker,
         };
-        this.setStatus(status);
+        this.setStatusOfPlayer(status);
         if (this.score > this.target) {
           this.isMatchWon = true;
           break;
         }
-        if (status.result % 2 === 1) {
+        if (status.result % 2 === 1 || status.result == -1) {
           [batsMan, nonStriker] = [status.nonStriker, status.batsMan];
         }
       }
@@ -84,8 +84,12 @@ export class Game {
         this.balls = 6;
         this.oversLeft--;
       }
-      [batsMan, nonStriker] = [nonStriker, batsMan];
+      [batsMan, nonStriker] = [status.nonStriker, status.batsMan];
     }
+    this.gameStatus();
+  }
+
+  gameStatus(){
     if (this.isMatchWon) {
       console.log(
         `Bangalore won by ${3 - this.wicketsLost} ${
@@ -98,7 +102,7 @@ export class Game {
     this.team.GetScoreCard();
   }
 
-  setStatus(status: { result: number; batsMan: string; nonStriker: string }) {
+  setStatusOfPlayer(status: { result: number; batsMan: string; nonStriker: string }) {
     if (status.result === -1) {
       this.wicketsLost++;
       console.log(this.getCommentary(status, ""));

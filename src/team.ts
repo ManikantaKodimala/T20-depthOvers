@@ -4,52 +4,74 @@ export enum TeamMembers {
   R_Rumrah,
   Shashi_Henra,
 }
-
+type playerStatus = {
+  score: number;
+  ballsPlayed: number;
+  isOut: boolean;
+  hasPlayed: boolean;
+};
 export class Team {
   private name: string;
-  private individualScore: {
-    [name: string]: {
-      score: number;
-      ballsPlayed: number;
-      isOut: boolean;
-      played: boolean;
-    };
-  } = {};
+  private individualScore = new Map<string, playerStatus>();
 
   constructor(name: string) {
     this.name = name;
     for (let index = 0; index < 4; index++) {
-      this.individualScore[TeamMembers[index]] = {
+      this.individualScore.set(TeamMembers[index], {
         score: 0,
         ballsPlayed: 0,
         isOut: false,
-        played: false,
-      };
+        hasPlayed: false,
+      });
     }
+  }
+
+  getPlayerScore(name: string): number {
+    let score: number = this.individualScore.get(name)!.score;
+    return score;
+  }
+
+  getPlayerBallsPlayed(name: string): number {
+    let ballPlayed = this.individualScore.get(name)!.ballsPlayed as number;
+    return ballPlayed;
+  }
+
+  isPlayerOut(name: string): boolean {
+    let isPlayerOut = this.individualScore.get(name)!.isOut as boolean;
+    return isPlayerOut;
+  }
+
+  isPlayerPlayed(name: string): boolean {
+    let isPlayerPlayed = this.individualScore.get(name)!.hasPlayed as boolean;
+    return isPlayerPlayed;
   }
 
   GetScoreCard(): void {
     for (let index = 0; index < 4; index++) {
-      let member = TeamMembers[index];
-      if (this.individualScore[member].played) {
-        let score = this.individualScore[member].score;
-        let ballsPlayed = this.individualScore[member].ballsPlayed;
-        let out = this.individualScore[member].isOut;
+      let memberStatus = this.individualScore.get(TeamMembers[index])!;
+      if (memberStatus.hasPlayed) {
+        let score = memberStatus.score;
+        let ballsPlayed = memberStatus.ballsPlayed;
+        let out = memberStatus.isOut;
         console.log(
-          `${member} - ${score}${!out ? "*" : ""} (${ballsPlayed} balls)`
+          `${TeamMembers[index]} - ${score}${
+            !out ? "*" : ""
+          } (${ballsPlayed} balls)`
         );
       }
     }
   }
 
   setScore(name: string, score: number, newPlayer: boolean) {
-    this.individualScore[name].played = true;
-    if (!newPlayer) this.individualScore[name].ballsPlayed++;
+    let memberStatus = this.individualScore.get(name)!;
+    memberStatus.hasPlayed = true;
+    if (!newPlayer) memberStatus.ballsPlayed++;
 
     if (score != -1) {
-      this.individualScore[name].score += score;
+      memberStatus.score += score;
     } else {
-      this.individualScore[name].isOut = true;
+      memberStatus.isOut = true;
     }
+    this.individualScore.set(name, memberStatus);
   }
 }
